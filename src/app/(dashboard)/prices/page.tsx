@@ -64,7 +64,7 @@ export default function PricesPage() {
               <tr>
                 <th className="px-6 py-4 rounded-tl-xl whitespace-nowrap">Product</th>
                 <th className="px-4 py-4 whitespace-nowrap">Supplier</th>
-                <th className="px-4 py-4 text-right whitespace-nowrap">Lowest Est. Price</th>
+                <th className="px-4 py-4 text-right whitespace-nowrap">Cost</th>
                 <th className="px-4 py-4 text-right whitespace-nowrap">
                   <div className="flex items-center justify-end gap-1">
                     Cost/Sale

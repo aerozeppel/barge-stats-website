@@ -12,8 +12,6 @@ type MarkupRow = {
   supplier: string;
   lowestPrice: number | null;
   costPerSale: number | null;
-  markup60: number | null;
-  markup65: number | null;
   markup70: number | null;
 };
 
@@ -73,8 +71,6 @@ export default function PricesPage() {
                     <Info className="w-3 h-3 text-zinc-500" />
                   </div>
                 </th>
-                <th className="px-4 py-4 text-right text-emerald-500/80 whitespace-nowrap">60% Markup</th>
-                <th className="px-4 py-4 text-right text-emerald-400/80 whitespace-nowrap">65% Markup</th>
                 <th className="px-6 py-4 text-right text-emerald-300 rounded-tr-xl whitespace-nowrap">70% Markup</th>
               </tr>
             </thead>
@@ -100,12 +96,6 @@ export default function PricesPage() {
                   <td className="px-4 py-4 text-right font-medium text-zinc-300">
                     {formatPrice(item.costPerSale)}
                   </td>
-                  <td className="px-4 py-4 text-right text-emerald-500/70 font-semibold bg-emerald-500/[0.02]">
-                    {formatPrice(item.markup60)}
-                  </td>
-                  <td className="px-4 py-4 text-right text-emerald-400/80 font-semibold bg-emerald-400/[0.05]">
-                    {formatPrice(item.markup65)}
-                  </td>
                   <td className="px-6 py-4 text-right text-emerald-300 font-bold bg-emerald-300/[0.08]">
                     {formatPrice(item.markup70)}
                   </td>
@@ -113,7 +103,7 @@ export default function PricesPage() {
               ))}
               {markupData.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="px-6 py-8 text-center text-zinc-500">
+                  <td colSpan={5} className="px-6 py-8 text-center text-zinc-500">
                     No pricing data found.
                   </td>
                 </tr>

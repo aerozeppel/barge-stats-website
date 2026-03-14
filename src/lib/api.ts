@@ -92,14 +92,10 @@ export async function getMarkupReportData() {
       }
     }
 
-    let markup60: number | null = null;
-    let markup65: number | null = null;
     let markup70: number | null = null;
 
     if (costPerSale !== null && isFinite(costPerSale)) {
       const costIncVat = costPerSale * 1.20;
-      markup60 = costIncVat / 0.40;
-      markup65 = costIncVat / 0.35;
       markup70 = costIncVat / 0.30;
     }
 
@@ -111,8 +107,6 @@ export async function getMarkupReportData() {
       supplier: supplierInitial,
       lowestPrice: lowestPrice,
       costPerSale: costPerSale,
-      markup60: markup60,
-      markup65: markup65,
       markup70: markup70,
     };
   });

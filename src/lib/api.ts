@@ -157,6 +157,15 @@ export async function getUsageReportData() {
     usageMap[u.ProductID].push(u);
   });
 
+  // Sort each product's usages by check date descending to guarantee the order
+  for (const pid in usageMap) {
+    usageMap[pid].sort((a, b) => {
+      const dateA = new Date(a.CheckDate || "").getTime();
+      const dateB = new Date(b.CheckDate || "").getTime();
+      return dateB - dateA; // Descending
+    });
+  }
+
   const reportRows = (productsData as Row[]).map((product) => {
     const pid = product.ProductID;
     const catId = product.CategoryID;

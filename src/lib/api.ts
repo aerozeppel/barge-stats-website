@@ -175,19 +175,19 @@ export async function getUsageReportData() {
     let unitsDisplay = "Units";
     let usageValue = 0;
 
-    if (catId === 1) {
+    if (catId === 1) { // Spirits
       unitsDisplay = "Shots";
-      usageValue = bottleSize > 0 ? ((usageAverage * caseSize) * bottleSize) / 25.0 : 0;
-    } else if (catId === 2) {
+      usageValue = ((usageAverage * caseSize) * bottleSize) / 25.0;
+    } else if (catId === 2) { // Bottles
       unitsDisplay = "Bottles";
       usageValue = usageAverage * caseSize;
-    } else if (catId === 3) {
+    } else if (catId === 3) { // Kegs
       unitsDisplay = "Gallons";
       usageValue = usageAverage;
-    } else if (catId === 4) {
+    } else if (catId === 4) { // BIB
       unitsDisplay = "Litres";
       usageValue = usageAverage;
-    } else if (catId === 5) {
+    } else if (catId === 5) { // Wines
       unitsDisplay = "Bottles";
       usageValue = usageAverage * caseSize;
     } else {

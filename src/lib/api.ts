@@ -125,16 +125,34 @@ export async function getUsageReportData() {
 
   if (productsError) throw new Error("Failed to fetch products: " + productsError.message);
 
-  const { data: usagesData, error: usagesError } = await supabase
-    .from("Usages")
-    .select("ProductID, AmountUsed, CheckDate")
-    .eq("IgnoreWeek", 0)
-    .order("CheckDate", { ascending: false });
+  const allUsages: Row[] = [];
+  let hasMore = true;
+  let offset = 0;
+  const pageSize = 1000;
 
-  if (usagesError) throw new Error("Failed to fetch usages: " + usagesError.message);
+  while (hasMore) {
+    const { data: usagesData, error: usagesError } = await supabase
+      .from("Usages")
+      .select("ProductID, AmountUsed, CheckDate")
+      .eq("IgnoreWeek", 0)
+      .order("CheckDate", { ascending: false })
+      .range(offset, offset + pageSize - 1);
+
+    if (usagesError) throw new Error("Failed to fetch usages: " + usagesError.message);
+
+    if (usagesData && usagesData.length > 0) {
+      allUsages.push(...usagesData);
+      offset += pageSize;
+      if (usagesData.length < pageSize) {
+        hasMore = false;
+      }
+    } else {
+      hasMore = false;
+    }
+  }
 
   const usageMap: Record<number, Row[]> = {};
-  (usagesData as Row[]).forEach((u) => {
+  allUsages.forEach((u) => {
     if (!usageMap[u.ProductID]) usageMap[u.ProductID] = [];
     usageMap[u.ProductID].push(u);
   });

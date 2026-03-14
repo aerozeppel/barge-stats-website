@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { getUsageReportData } from "@/lib/api";
+import { CategoryFilter } from "@/components/CategoryFilter";
 import { Sparkline } from "@/components/Sparkline";
 import { TrendingDown } from "lucide-react";
 
@@ -18,6 +19,12 @@ type UsageRow = {
 export default function UsagePage() {
   const [usageData, setUsageData] = useState<UsageRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+
+  const filteredData = useMemo(() => {
+    if (selectedCategory === null) return usageData;
+    return usageData.filter((item) => item.categoryID === selectedCategory);
+  }, [usageData, selectedCategory]);
 
   useEffect(() => {
     async function fetchData() {
@@ -52,6 +59,12 @@ export default function UsagePage() {
         <p className="text-zinc-400 mt-2">11-week average product usage and recent trends.</p>
       </div>
 
+      <CategoryFilter
+        items={usageData}
+        selectedCategoryID={selectedCategory}
+        onSelect={setSelectedCategory}
+      />
+
       <div className="glass-panel rounded-2xl overflow-hidden border border-white/5">
         <div className="overflow-x-auto">
           <table className="w-full text-left">
@@ -64,7 +77,7 @@ export default function UsagePage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5 bg-zinc-950/30">
-              {usageData.map((item) => (
+              {filteredData.map((item) => (
                 <tr key={item.productID} className="hover:bg-zinc-800/30 transition-colors group">
                   <td className="px-6 py-4">
                     <div className="font-medium text-zinc-100">{item.name}</div>
@@ -83,7 +96,7 @@ export default function UsagePage() {
                   </td>
                 </tr>
               ))}
-              {usageData.length === 0 && (
+              {filteredData.length === 0 && (
                 <tr>
                   <td colSpan={4} className="px-6 py-8 text-center text-zinc-500">
                     No usage data available.

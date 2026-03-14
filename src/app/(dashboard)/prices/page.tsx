@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { getMarkupReportData } from "@/lib/api";
+import { CategoryFilter } from "@/components/CategoryFilter";
 import { BarChart3, Info } from "lucide-react";
 
 type MarkupRow = {
@@ -18,6 +19,12 @@ type MarkupRow = {
 export default function PricesPage() {
   const [markupData, setMarkupData] = useState<MarkupRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+
+  const filteredData = useMemo(() => {
+    if (selectedCategory === null) return markupData;
+    return markupData.filter((item) => item.categoryID === selectedCategory);
+  }, [markupData, selectedCategory]);
 
   useEffect(() => {
     async function fetchData() {
@@ -57,6 +64,12 @@ export default function PricesPage() {
         <p className="text-zinc-400 mt-2">Lowest supplier prices, estimated cost per sale, and target markups.</p>
       </div>
 
+      <CategoryFilter
+        items={markupData}
+        selectedCategoryID={selectedCategory}
+        onSelect={setSelectedCategory}
+      />
+
       <div className="glass-panel rounded-2xl overflow-hidden border border-white/5">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
@@ -75,7 +88,7 @@ export default function PricesPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5 bg-zinc-950/30">
-              {markupData.map((item) => (
+              {filteredData.map((item) => (
                 <tr key={item.productID} className="hover:bg-zinc-800/30 transition-colors">
                   <td className="px-6 py-4">
                     <div className="font-medium text-zinc-100">{item.name}</div>
@@ -101,7 +114,7 @@ export default function PricesPage() {
                   </td>
                 </tr>
               ))}
-              {markupData.length === 0 && (
+              {filteredData.length === 0 && (
                 <tr>
                   <td colSpan={5} className="px-6 py-8 text-center text-zinc-500">
                     No pricing data found.

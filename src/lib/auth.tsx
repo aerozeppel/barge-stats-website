@@ -13,7 +13,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 const STORAGE_KEY = "barge-stats-auth";
-const CORRECT_PASSWORD = "redkit"; // In production, you could hash this
+const CORRECT_PASSWORD = "Th3Barg3"; // In production, you could hash this
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

@@ -136,6 +136,7 @@ export async function getUsageReportData() {
       .select("ProductID, AmountUsed, CheckDate")
       .eq("IgnoreWeek", 0)
       .order("CheckDate", { ascending: false })
+      .order("ProductID", { ascending: true })
       .range(offset, offset + pageSize - 1);
 
     if (usagesError) throw new Error("Failed to fetch usages: " + usagesError.message);

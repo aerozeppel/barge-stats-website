@@ -7,9 +7,9 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "@/lib/auth";
 
 const navItems = [
-  { href: "/barge", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/barge/usage", label: "Usage Reports", icon: TrendingDown },
-  { href: "/barge/prices", label: "Prices & Margins", icon: BarChart3 },
+  { href: "/", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/usage", label: "Usage Reports", icon: TrendingDown },
+  { href: "/prices", label: "Prices & Margins", icon: BarChart3 },
 ];
 
 export function Sidebar() {
@@ -50,7 +50,7 @@ export function Sidebar() {
         <button
           onClick={() => {
             logout();
-            window.location.href = "/barge/login";
+            window.location.href = "/login";
           }}
           className="flex w-full items-center gap-3 px-3 py-2.5 rounded-xl text-zinc-400 hover:text-red-400 hover:bg-red-500/10 transition-colors text-sm font-medium group"
         >

@@ -6,9 +6,9 @@ import { LayoutDashboard, BarChart3, TrendingDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { href: "/barge", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/barge/usage", label: "Usage", icon: TrendingDown },
-  { href: "/barge/prices", label: "Prices", icon: BarChart3 },
+  { href: "/", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/usage", label: "Usage", icon: TrendingDown },
+  { href: "/prices", label: "Prices", icon: BarChart3 },
 ];
 
 export function MobileNav() {
@@ -17,7 +17,7 @@ export function MobileNav() {
   return (
     <>
       {navItems.map((item) => {
-        const isActive = pathname === item.href || (pathname.startsWith(item.href) && item.href !== "/barge");
+        const isActive = pathname === item.href || (pathname.startsWith(item.href) && item.href !== "/");
         return (
           <Link
             key={item.href}

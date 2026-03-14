@@ -60,7 +60,7 @@ export function RequireAuth({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!loading && !isAuthenticated) {
-      router.push("/barge/login");
+      router.push("/login");
     }
   }, [isAuthenticated, loading, router]);
 

@@ -20,7 +20,7 @@ export default function LoginPage() {
     const success = login(password);
 
     if (success) {
-      router.push("/barge");
+      router.push("/");
     } else {
       setError("Incorrect password");
       setLoading(false);
